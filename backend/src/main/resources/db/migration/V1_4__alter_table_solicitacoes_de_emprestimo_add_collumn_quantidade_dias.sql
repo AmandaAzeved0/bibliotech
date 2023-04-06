@@ -1,0 +1,1 @@
+ALTER TABLE solicitacoes_de_emprestimo ADD COLUMN quantidade_dias SMALLINT NOT NULL DEFAULT 0;

@@ -1,0 +1,36 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import {HomeComponent} from "./components/home/home.component";
+import {FullComponent} from "./components/layouts/full/full.component";
+
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  {
+    path: 'cafe',
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: '/cafe/dashboard',
+        pathMatch: 'full',
+      },
+      {
+        path: '',
+        loadChildren:
+          () => import('./components/material-component/material.module').then(m => m.MaterialComponentsModule),
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule),
+      }
+    ]
+  },
+  { path: '**', component: HomeComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

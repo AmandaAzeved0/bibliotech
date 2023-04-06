@@ -1,0 +1,1 @@
+alter table penalidade_usuario add data_bloqueio_fim date ;
