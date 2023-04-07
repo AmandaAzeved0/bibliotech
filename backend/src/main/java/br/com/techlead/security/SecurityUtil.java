@@ -1,11 +1,14 @@
 package br.com.techlead.security;
 
+import br.com.techlead.config.AppProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class SecurityUtil {
@@ -48,6 +51,16 @@ public class SecurityUtil {
                 .parseClaimsJws(token).getBody();
 
         return claims.getSubject();
+    }
+
+    public static String getAuthority(Claims claims) {
+        List<Map<String, String>> userProfiles = claims.get("authorities", List.class);
+        String userAuthority = userProfiles.stream()
+                .filter(profile -> profile.containsKey("authority"))
+                .map(profile -> profile.get("authority"))
+                .findFirst()
+                .orElse(null);
+        return userAuthority;
     }
 
     public static boolean hasTokenExpired(String token) {

@@ -1,4 +1,4 @@
-package br.com.techlead.security;
+package br.com.techlead.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
