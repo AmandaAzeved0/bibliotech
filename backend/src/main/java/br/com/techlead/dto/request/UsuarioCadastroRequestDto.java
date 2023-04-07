@@ -23,5 +23,4 @@ public class UsuarioCadastroRequestDto {
     @Email(message = "Email inválido")
     private String email;
     private String senha;
-    private Integer perfilId;
 }

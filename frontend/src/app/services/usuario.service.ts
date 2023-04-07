@@ -19,7 +19,7 @@ export class UsuarioService<s> {
       .set('Content-Type', 'application/json')
       .set('Access-Control-Allow-Origin', 'http://localhost:4200');
 
-    return this.httpClient.post<s>(this.url + 'cadastro', data);
+    return this.httpClient.post<s>(this.url + 'cadastro/cliente', data);
   }
 }
 

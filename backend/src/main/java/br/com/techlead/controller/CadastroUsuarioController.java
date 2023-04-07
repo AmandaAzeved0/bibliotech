@@ -7,11 +7,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/cadastro")
 @RestController
@@ -22,10 +20,19 @@ public class CadastroUsuarioController {
 
     private final CadastroService service;
 
-    @PostMapping
-    @ApiOperation("Salva um usuário")
-    public ResponseEntity<String> save(@RequestBody @Validated UsuarioCadastroRequestDto usuarioCadastroRequestDto) {
-        service.save(usuarioCadastroRequestDto);
+    @CrossOrigin(origins = "*")
+    @PostMapping("/cliente")
+    @ApiOperation("Salva um cliente")
+    public ResponseEntity<String> saveCliente(@RequestBody @Validated UsuarioCadastroRequestDto usuarioCadastroRequestDto) {
+        service.save(usuarioCadastroRequestDto,2);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/bibliotecario")
+    @ApiOperation("Salva um bibliotecário")
+    @PreAuthorize("hasAuthority('Administrador')")
+    public ResponseEntity<String> saveBibliotecario(@RequestBody @Validated UsuarioCadastroRequestDto usuarioCadastroRequestDto) {
+        service.save(usuarioCadastroRequestDto,3);
         return ResponseEntity.ok().build();
     }
 }

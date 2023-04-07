@@ -51,15 +51,10 @@ export class CadastroUsuarioComponent {
   handleSubmit(){
     var dadosDeCadastro = this.formCadastro.value;
     var dados = {
-      // nome: dadosDeCadastro.nome,
-      // email: dadosDeCadastro.email,
-      // senha: dadosDeCadastro.senha,
-      // cpf: dadosDeCadastro.cpf,
       nome: 'dadosDeCadastro.nome',
       email: 'email@gmail.com',
       senha: '1234',
-      cpf: '00108122298',
-      perfilId: 2
+      cpf: '00108122298'
     }
     this.usuarioService.cadastrarUsuario(dados).subscribe((response:any) => {
       this.dialogRef.close();
