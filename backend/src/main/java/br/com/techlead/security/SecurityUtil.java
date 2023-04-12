@@ -25,7 +25,6 @@ public class SecurityUtil {
 
     public static String extractUserInfo(String token) {
         token = token.replace(TOKEN_PREFIX, "");
-
         return Jwts.parser()
                 .setSigningKey(getTokenSecret())
                 .parseClaimsJws( token )

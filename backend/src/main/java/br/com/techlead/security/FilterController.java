@@ -49,7 +49,7 @@ public class FilterController implements Filter {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) req;
-;
+
 
         if (request.getRequestURI().contains("cadastro/cliente")) {
             chain.doFilter(req, res);
@@ -59,7 +59,6 @@ public class FilterController implements Filter {
 
         HttpServletResponse response = (HttpServletResponse) res;
         String token = request.getHeader(SecurityUtil.HEADER_STRING);
-        String user = SecurityUtil.extractUserInfo(token);
         Claims claims = SecurityUtil.extractAuthorities(token);
         String perfil = SecurityUtil.getAuthority(claims);
 
@@ -85,6 +84,5 @@ public class FilterController implements Filter {
             return false;
         }
     }
-
 
 }

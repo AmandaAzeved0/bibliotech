@@ -13,16 +13,9 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
-import org.springframework.http.HttpMethod;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 
 
 @Configuration
@@ -33,21 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.httpBasic().disable().csrf().disable().authorizeRequests()
-//                .antMatchers("/v3/api-docs",
-//                        "/swagger*/**",
-//                        "/cadastro/").permitAll()
-//                .anyRequest().authenticated()
-//                .and().addFilterBefore(new CorsFilter(), AuthenticationFilter.class)
-//                .addFilter(getAuthenticationFilter()).addFilter(new AuthorizationFilter(authenticationManager()))
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().headers().frameOptions().disable();
-//
-//    }
-
-
-
     private final UsuarioService usuarioService;
 
     @Override
@@ -55,17 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(usuarioService);
-        return provider;
-    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors();
         http.httpBasic().disable().csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**", "/cadastro/cliente/**")
@@ -75,22 +46,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                     .authenticated()
                 .and()
-                .addFilterBefore(new CorsFilter(), AuthenticationFilter.class)
                 .addFilter(getAuthenticationFilter())
                 .addFilter(new AuthorizationFilter(authenticationManager()))
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().headers().frameOptions().disable();
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     }
 
-    public AuthenticationFilter getAuthenticationFilter() throws Exception {
-
-        final AuthenticationFilter filter = new AuthenticationFilter(
-                authenticationManager());
-        filter.setFilterProcessesUrl("/usuarios/autenticar");
-        return filter;
-    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -106,6 +68,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         firewall.setAllowUrlEncodedSlash(true);
         firewall.setAllowSemicolon(true);
         return firewall;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(bCryptPasswordEncoder);
+        provider.setUserDetailsService(usuarioService);
+        return provider;
+    }
+
+    public AuthenticationFilter getAuthenticationFilter() throws Exception {
+        final AuthenticationFilter filter = new AuthenticationFilter(
+                authenticationManager());
+        filter.setFilterProcessesUrl("/usuarios/autenticar");
+        return filter;
     }
 
 }
