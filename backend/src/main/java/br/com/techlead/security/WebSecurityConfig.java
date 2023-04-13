@@ -36,23 +36,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors();
         http.httpBasic().disable().csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**", "/cadastro/cliente/**")
-                    .permitAll()
-                .antMatchers("/actuator/**")
-                    .hasRole("USER")
-                .anyRequest()
-                    .authenticated()
+                .antMatchers(HttpMethod.POST, "/cadastro/cliente/**")
+                .permitAll()
+                .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
+                .permitAll()
+                .anyRequest().authenticated()
                 .and()
+                .addFilterBefore(new CorsFilter(), AuthenticationFilter.class)
                 .addFilter(getAuthenticationFilter())
                 .addFilter(new AuthorizationFilter(authenticationManager()))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
     }
-
 
     @Override
     public void configure(WebSecurity web) throws Exception {
