@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Service
 public class SecurityUtil {
@@ -73,5 +74,12 @@ public class SecurityUtil {
         Date today = new Date();
 
         return tokenExpirationDate.before(today);
+    }
+
+    public static String gerarSenhaAleatoria() {
+        Random random = new Random();
+        int senhaInt = random.nextInt(900000) + 100000;
+        String senha = String.valueOf(senhaInt);
+        return senha;
     }
 }

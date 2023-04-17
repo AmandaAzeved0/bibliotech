@@ -36,15 +36,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors().disable();
         http.httpBasic().disable().csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/cadastro/cliente/**")
-                .permitAll()
+                .antMatchers(HttpMethod.POST, "/cadastro/cliente/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/usuario/reset-senha").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/usuarios/autenticar").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/estoque/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/livro/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/solicitacaoDeEmprestimo/**").permitAll()
                 .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new CorsFilter(), AuthenticationFilter.class)
+                .addFilterBefore(new CorsConfig(), AuthenticationFilter.class)
                 .addFilter(getAuthenticationFilter())
                 .addFilter(new AuthorizationFilter(authenticationManager()))
                 .sessionManagement()
