@@ -13,10 +13,10 @@ import java.time.LocalDate;
 @ApiModel("Dto para retornar solicitações de emprestimo de um livro")
 public class SolicitacoesDeEmprestimoResponseDto {
             private Integer id;
+            private String usuarioNome;
+            private String usuarioCpf;
+            private String livroTitulo;
             private LocalDate dataSoliciacao;
             private String status;
-            private Integer usuarioId;
-            private String nomeLivro;
-            private Integer livroId;
             private Integer diasSolicitados;
 }

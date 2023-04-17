@@ -8,15 +8,14 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("DTO para retorno de livros")
-public class LivroResponseDto {
+@ApiModel("DTO para retorno de dados do estoque")
+public class EstoqueResponseDto {
     private Integer id;
     private String titulo;
     private String autor;
     private String genero;
-    private String estado;
-    private Boolean disponivel;
-    private Integer estoqueId;
+    private Integer quantidadeTotal;
 
+    private Long quantidadeDisponivel;
 
 }
