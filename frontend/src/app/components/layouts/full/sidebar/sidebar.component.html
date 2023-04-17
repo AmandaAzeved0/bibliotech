@@ -1,0 +1,11 @@
+
+<mat-nav-list appAccordion>
+  <mat-list-item  appAccordionLink  *ngFor="let menuitem of menuItems.getAll()" routerLinkActive="slected" group="{{menuitem.state}}">
+    <a class="" appAccordionToggle [routerLink]="['/bibliotech/'+ menuitem.state]"
+       *ngIf="menuitem.type ==='link' && (menuitem.perfil==='' || menuitem.perfil === perfilUsuario) " >
+      <mat-icon>{{menuitem.icon}}</mat-icon>
+      <span>{{menuitem.name}}</span>
+    </a>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</mat-nav-list>

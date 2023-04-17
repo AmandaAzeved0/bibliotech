@@ -1,0 +1,28 @@
+.mat-toolbar{
+  magrin : -24px;
+  width : auto;
+  margin-bottom: 10px;
+}
+mat-form-field{
+  padding: 5px;
+}
+mat-hint{
+  color: red;
+}
+
+.align-right {
+  float: right;
+}
+
+.card-content {
+  justify-content: space-between;
+}
+
+.title-and-button {
+  display: flex;
+  align-items: center;
+}
+
+.button-spacer {
+  margin-left: auto;
+}

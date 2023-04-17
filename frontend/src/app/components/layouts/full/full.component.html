@@ -1,4 +1,5 @@
-<div class="main-container">
+
+<!--  MENU DE CIME -> HEADER-->
     <mat-toolbar color="primary" class="topbar telative">
         <div class="navbar-header">
             <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed" style="vertical-align: bottom;">
@@ -9,21 +10,26 @@
                 </span>
             </b>
             <span fxShow="false" fxShow.gt-xs>
-                Biblioteca TECHLEAD
+                BibliotTECH
             </span>
         </div>
         <span fxFlex></span>
         <app-header></app-header>
     </mat-toolbar>
-    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
-        <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
-            fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches">
-            <app-sidebar></app-sidebar>
-        </mat-sidenav>
-        <mat-sidenav-content class="page-wrapper">
-            <div class="page-content">
-                <router-outlet></router-outlet>
-            </div>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
-</div>
+
+<!--  SIDEBAR COM MENU -->
+<mat-sidenav-container class="example-container" autosize [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+  <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches">
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content class="page-wrapper">
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+

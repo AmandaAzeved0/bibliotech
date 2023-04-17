@@ -1,0 +1,57 @@
+
+<mat-card>
+  <mat-card-content class="card-content">
+    <div class="title-and-button">
+      <h2><b>Solicitações de empréstimo</b></h2>
+    </div>
+  </mat-card-content>
+</mat-card>
+<hr>
+
+<mat-card>
+  <mat-card-content>
+  <form [formGroup]="abrirSolicitacaoForm">
+    <div fxFlex fxLayout="column">
+
+      <div fxLayout="row wrap">
+        <mat-form-field appearance="fill" fxFlex>
+          <mat-label>Gêneros</mat-label>
+          <mat-select formControlName="genero" (selectionChange)="getLivrosDisponiveisPorGenero($event.value)">
+            <mat-option *ngFor="let genero of generos" [value]="genero">
+              {{genero}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span></span>
+
+        <mat-form-field appearance="fill" fxFlex>
+          <mat-label>Livro</mat-label>
+          <mat-select formControlName="livro">
+            <mat-option *ngFor="let livro of livrosDisponiveis" [value]="livro">
+              {{livro.titulo}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span></span>
+
+        <mat-form-field appearance="fill" fxFlex>
+          <mat-label>Quantidade de dias</mat-label>
+          <input matInput type="number" formControlName="dias">
+        </mat-form-field>
+
+      </div>
+    </div>
+  </form>
+  </mat-card-content>
+  <mat-card-footer>
+        <button mat-raised-button type="submit" class="float-right button-spacer" color="primary" (click)="salvarNovaSolicitacao()">
+          <mat-icon>save</mat-icon>Salvar
+        </button>
+
+        <button mat-raised-button class="float-right" color="warn"mat-dialog-close>
+          <mat-icon>cancel</mat-icon>Cancelar
+        </button>
+  </mat-card-footer>
+</mat-card>
+
+

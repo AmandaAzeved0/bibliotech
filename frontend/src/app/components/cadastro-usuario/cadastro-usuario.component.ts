@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {UsuarioService} from "../../services/usuario.service";
-import {SnackbarService} from "../../services/snackbar.service";
+import {UsuarioService} from "../../services/usuario/usuario.service";
+import {SnackbarService} from "../../services/snackbar/snackbar.service";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {Globalconstants} from "../shared/global-constants";
 import {AppComponent} from "../../app.component";
@@ -43,7 +43,7 @@ export class CadastroUsuarioComponent {
       if(this.formCadastro.value.senha === this.formCadastro.value.confirmaSenha) {
         return true;
       }else {
-        this.snackbarService.openSnapckBar('As senhas não conferem','error');
+        this.snackbarService.openSnackBar('As senhas não conferem','error');
         return false;
       }
   }
@@ -51,15 +51,15 @@ export class CadastroUsuarioComponent {
   handleSubmit(){
     var dadosDeCadastro = this.formCadastro.value;
     var dados = {
-      nome: 'dadosDeCadastro.nome',
-      email: 'email@gmail.com',
-      senha: '1234',
-      cpf: '00108122298'
+      nome: dadosDeCadastro.nome,
+      email: dadosDeCadastro.email,
+      senha: dadosDeCadastro.senha,
+      cpf: dadosDeCadastro.cpf
     }
     this.usuarioService.cadastrarUsuario(dados).subscribe((response:any) => {
       this.dialogRef.close();
       this.responseMessage = response?.message;
-      this.snackbarService.openSnapckBar(this.responseMessage,"");
+      this.snackbarService.openSnackBar(this.responseMessage,"");
       this.router.navigate(['/']);
     })
   }
