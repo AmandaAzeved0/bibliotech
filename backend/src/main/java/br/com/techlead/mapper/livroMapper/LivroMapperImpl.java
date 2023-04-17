@@ -14,11 +14,13 @@ public class LivroMapperImpl extends LivroMapper {
     @Override
     public LivroResponseDto toDto(Livro entity) {
         LivroResponseDto dto  = LivroResponseDto.builder()
-                .estoqueId(entity.getEstoque().getId())
-                .autor(entity.getEstoque().getAutor())
+                .id(entity.getId())
                 .titulo(entity.getEstoque().getTitulo())
-                .disponivel(entity.getDisponivel())
+                .autor(entity.getEstoque().getAutor())
+                .genero(entity.getEstoque().getGenero())
                 .estado(entity.getEstado())
+                .disponivel(entity.getDisponivel())
+                .estoqueId(entity.getEstoque().getId())
                 .build();
         return dto;
     }

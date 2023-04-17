@@ -50,7 +50,6 @@ public class SolicitacaoDeEmprestimoService {
                         reservaDto.getQuantidadeDias());
 
         repository.save(solicitacaoDeEmprestimo);
-        livroService.updateDisponibilidade(livro.getId());
     }
 
     public SolicitacaoDeEmprestimo findById(Integer id) {
@@ -92,4 +91,8 @@ public class SolicitacaoDeEmprestimoService {
     }
 
 
+    public List<SolicitacoesDeEmprestimoResponseDto> findAll() {
+        List<SolicitacaoDeEmprestimo> solicitacoes = repository.findAll();
+        return this.getSolicitacoesDeEmprestimoResponseDtos(solicitacoes);
+    }
 }

@@ -32,5 +32,8 @@ public class EstoqueLivro {
     @Column(name = "autor", nullable = false, length = 100)
     private String autor;
 
+    @OneToMany(mappedBy = "estoque")
+    private Set<Livro> livros = new LinkedHashSet<>();
+
 
 }

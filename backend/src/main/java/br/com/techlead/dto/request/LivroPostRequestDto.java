@@ -16,7 +16,6 @@ public class LivroPostRequestDto {
     private String genero;
     private String autor;
     private String estado;
-
     private Integer quantidade;
 
 

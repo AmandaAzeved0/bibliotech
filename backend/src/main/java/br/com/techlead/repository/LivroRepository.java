@@ -4,9 +4,10 @@ import br.com.techlead.domain.Livro;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.hibernate.dialect.PostgreSQLDialect.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,4 +31,12 @@ public interface LivroRepository extends JpaRepository<Livro, Integer> {
             @Param("estoqueId") Integer estoqueId,
             Pageable pageable);
 
+
+    @Query("SELECT l FROM Livro l WHERE l.disponivel = true AND l.estoque.genero = :genero")
+    List<Livro> findDisponiveisByGenero(String genero);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Livro l WHERE l.estoque.id = :estoqueId AND l.disponivel = true")
+    void deleteAllDisponiveisByEstoqueId(Integer estoqueId);
 }

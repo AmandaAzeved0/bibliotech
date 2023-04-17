@@ -1,6 +1,7 @@
 package br.com.techlead.domain;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -28,5 +29,6 @@ public class Perfil {
 
     @OneToMany(mappedBy = "perfil")
     private Set<Usuario> usuarios = new LinkedHashSet<>();
+
 
 }

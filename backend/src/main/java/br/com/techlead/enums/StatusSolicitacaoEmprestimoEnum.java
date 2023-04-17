@@ -3,7 +3,7 @@ package br.com.techlead.enums;
 public enum StatusSolicitacaoEmprestimoEnum {
     PENDENTE("Pendente"),
     APROVADO("Aprovado"),
-    REPROVADO("Reprovado");
+    RECUSADO("Recusado");
 
     private String descricao;
 

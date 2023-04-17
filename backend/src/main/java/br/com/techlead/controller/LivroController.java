@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path="/livro" ,  produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 @Slf4j
@@ -29,8 +29,8 @@ public class LivroController {
     }
 
     @PostMapping
-    @ApiOperation("Salva um livro")
-    public ResponseEntity<Void> save(@RequestBody @Validated List<LivroPostRequestDto> livroPostRequestDto) {
+    @ApiOperation("Salva um ou mais livros")
+    public ResponseEntity<Void> save(@RequestBody @Validated LivroPostRequestDto livroPostRequestDto) {
         livroService.save(livroPostRequestDto);
         return ResponseEntity.ok().build();
     }
@@ -42,27 +42,27 @@ public class LivroController {
         return ResponseEntity.ok(livro);
     }
 
-
-    @DeleteMapping("/{id}")
-    @ApiOperation(value = "Deleta um livro pelo id")
-    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
-      livroService.findById(id);
-        livroService.deleteById(id);
-        return ResponseEntity.ok().build();
+    @GetMapping("/lista/{estoqueId}")
+    @ApiOperation(value = "Retorna um livro pelo estoque", response = LivroResponseDto.class)
+    public ResponseEntity<List<LivroResponseDto>> findByEtoqueId(@PathVariable("estoqueId") Integer id) {
+        List<LivroResponseDto> livros = livroService.findByEstoqueId(id);
+        return ResponseEntity.ok(livros);
     }
+
+
+
+
     @GetMapping("/lista")
-    @ApiOperation(value = "Retorna uma lista de livros com ou sem filtro", response = LivroResponseDto.class)
-    public ResponseEntity<Page<LivroResponseDto>> findAllComFiltroOpcional(
-            @RequestParam(value = "titulo", required = false) String titulo,
-            @RequestParam(value = "autor", required = false) String autor,
-            @RequestParam(value = "disponivel", required = false) Boolean disponivel,
-            @RequestParam(value = "emprestado", required = false) Boolean emprestado,
-            @RequestParam(value = "estoqueId", required = false) Integer estoqueId,
-            @RequestParam(value = "estado", required = false) String estado,
-            Pageable pageable) {
-        Page<LivroResponseDto> livroPage = livroService.findALLComFiltro(
-                titulo, autor, disponivel, emprestado, estado, estoqueId,
-                pageable);
+    @ApiOperation(value = "Retorna uma lista de livros", response = LivroResponseDto.class)
+    public ResponseEntity<List<LivroResponseDto>> findAll() {
+        List<LivroResponseDto> livroPage = livroService.findAll();
+        return ResponseEntity.ok(livroPage);
+    }
+
+    @GetMapping("/lista/livros/{genero}")
+    @ApiOperation(value = "Retorna uma lista de livros por genero", response = LivroResponseDto.class)
+    public ResponseEntity<List<LivroResponseDto>> findByGenero(@PathVariable("genero") String genero) {
+        List<LivroResponseDto> livroPage = livroService.findLivrosDisponiveisByGenero(genero);
         return ResponseEntity.ok(livroPage);
     }
 
@@ -73,6 +73,13 @@ public class LivroController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "Deleta um livro pelo id")
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+        livroService.findById(id);
+        livroService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
     @DeleteMapping("/delete/all")
     @ApiOperation(value = "Deleta todos os livros e limpa o estoque")
     public ResponseEntity<Void> deleteAll() {

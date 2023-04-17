@@ -3,6 +3,7 @@ package br.com.techlead.service;
 import br.com.techlead.domain.Emprestimo;
 import br.com.techlead.domain.Livro;
 import br.com.techlead.domain.Usuario;
+import br.com.techlead.dto.response.EmprestimoResponseDto;
 import br.com.techlead.exception.BadRequestException;
 import br.com.techlead.mapper.emprestimoMapper.EmprestimoMapper;
 import br.com.techlead.repository.EmprestimoRepository;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -38,8 +41,6 @@ public class EmprestimoService {
         Emprestimo emprestimo = this.findById(emprestimoId);
         emprestimo.setDataDevolucao(LocalDate.now());
         if(perda || dano) {
-            //todo atualiza estado do livro
-
             penalidadeService.aplicaPenalidadePerdaOuDano(emprestimo);
             return;
         }else if(emprestimo.getDataDevolucao().isAfter(emprestimo.getDataEmprestimoFim())) {

@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="mat-dialog-title" fxLayout="row">
+    <span>Login</span>
+    <span class="spacer"></span>
+    <button class="mat-dialog-close" mat-icon-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="loginForm">
+    <div fxFlex fxLayout="column">
+      <mat-form-field appearance="fill" >
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="pat@example.com" formControlName="email" required>
+        <mat-error *ngIf="loginForm.get('email').hasError('required')">Email é obrigatório</mat-error>
+        <mat-error *ngIf="loginForm.get('email').hasError('pattern')">Email inválido</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input matInput [type]="senhaVisivel ? 'text' : 'password'" placeholder="Senha" formControlName="senha" required>
+        <button mat-icon-button matSuffix (click)="senhaVisivel = !senhaVisivel" [attr.aria-label]="'Mostrar senha'" [attr.aria-pressed]="senhaVisivel">
+          <mat-icon>{{senhaVisivel ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('senha').hasError('required')">Senha é obrigatória</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-toolbar>
+  <mat-toolbar-row fxLayoutAlign="end">
+    <button mat-raised-button class="button-spacer" color="primary" (click)="logar()">Login</button>
+    <button mat-raised-button class="button-spacer" mat-dialog-close>Cancelar</button>
+  </mat-toolbar-row>
+</mat-toolbar>

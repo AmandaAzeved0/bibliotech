@@ -1,0 +1,10 @@
+
+.example-container {
+  height: 100%;
+
+
+}
+.example-sidenav-content {
+  height: 100%;
+  margin-top: 64px; /* Ajuste para considerar o tamanho do cabeçalho */
+}

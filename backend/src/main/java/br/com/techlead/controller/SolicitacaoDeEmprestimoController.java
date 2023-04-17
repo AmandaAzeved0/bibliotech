@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RequestMapping("/solicitacaoDeEmprestimo")
 @RestController
@@ -33,21 +34,12 @@ public class SolicitacaoDeEmprestimoController {
     }
 
 
+  //listar todas as solicitacoes de emprestimo
     @GetMapping("/lista")
-    @ApiOperation(
-            value = "Retorna uma lista de solicitações com ou sem filtro",
-            response = SolicitacoesDeEmprestimoResponseDto.class)
-    public ResponseEntity<Page<SolicitacoesDeEmprestimoResponseDto>> findAllComFiltroOpcional(
-            @RequestParam(value = "data", required = false) LocalDate data,
-            @RequestParam(value = "usuarioId", required = false) Integer usuarioId,
-            @RequestParam(value = "livroId", required = false) Integer livroId,
-            @RequestParam(value = "status", required = false) StatusSolicitacaoEmprestimoEnum status,
-            Pageable pageable) {
-
-        Page<SolicitacoesDeEmprestimoResponseDto> reservaPage = solicitacaoDeEmprestimoService
-                .findAllComFiltro(data, usuarioId, livroId, status, pageable);
-
-        return ResponseEntity.ok(reservaPage);
+    @ApiOperation("Retorna uma lista de solicitações de empréstimo")
+    public ResponseEntity<List<SolicitacoesDeEmprestimoResponseDto>> findAll() {
+        List<SolicitacoesDeEmprestimoResponseDto> solicitacoesDeEmprestimoResponseDtoPage = solicitacaoDeEmprestimoService.findAll();
+        return ResponseEntity.ok(solicitacoesDeEmprestimoResponseDtoPage);
     }
 
     @PutMapping

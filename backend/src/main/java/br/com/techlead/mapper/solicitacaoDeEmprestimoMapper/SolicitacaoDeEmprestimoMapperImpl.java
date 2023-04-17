@@ -29,12 +29,12 @@ public class SolicitacaoDeEmprestimoMapperImpl extends SolicitacaoDeEmprestimoMa
     public SolicitacoesDeEmprestimoResponseDto toDto(SolicitacaoDeEmprestimo solicitacao) {
         SolicitacoesDeEmprestimoResponseDto dto = SolicitacoesDeEmprestimoResponseDto.builder()
                 .id(solicitacao.getId())
+                .usuarioNome(solicitacao.getUsuario().getNome())
+                .usuarioCpf(solicitacao.getUsuario().getCpf())
+                .livroTitulo(solicitacao.getLivro().getEstoque().getTitulo())
                 .dataSoliciacao(solicitacao.getDataSoliciacao())
                 .status(solicitacao.getStatus())
-                .usuarioId(solicitacao.getUsuario().getId())
                 .diasSolicitados(solicitacao.getQuantidadeDias())
-                .nomeLivro(solicitacao.getLivro().getEstoque().getTitulo())
-                .livroId(solicitacao.getLivro().getId())
                 .build();
         return dto;
     }

@@ -14,7 +14,6 @@ public class CadastroService {
     private final PerfilRepository perfilRepository;
     public Usuario save(UsuarioCadastroRequestDto usuarioDto,Integer perfilId) {
 
-        //TODO VERIFICAR MELHOR IMPLEMENTACAO DE PERFIL E CADASTRAR SOMENTE CLIENTES
         Perfil perfil = perfilRepository.findById(perfilId).orElseThrow(() -> new RuntimeException("Perfil não encontrado！"));
         Usuario entity = Usuario.builder()
                 .nome(usuarioDto.getNome())

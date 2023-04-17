@@ -60,21 +60,6 @@ public class PenalidadeUsuarioService {
         usuarioService.bloqueiaUsuario(emprestimo.getUsuario().getId());
     }
 
-//    private TiposDePenalidade tipoPenalidadePorDiasDeAtraso(Integer diasAtraso) {
-//        String descricaoPenalidade = "";
-//        if (diasAtraso < 10 ) {
-//           descricaoPenalidade = TipoDePenalidadeEnum.INFERIOR_A_DEZ_DIAS.getDescricao();
-//        }else if (diasAtraso > 10 && diasAtraso < 20) {
-//            descricaoPenalidade = TipoDePenalidadeEnum.SUPERIOR_A_DEZ_DIAS.getDescricao();
-//        }else if (diasAtraso > 20 && diasAtraso < 30) {
-//            descricaoPenalidade = TipoDePenalidadeEnum.SUPERIOR_A_VINTE_DIAS.getDescricao();
-//        }else if (diasAtraso > 30) {
-//            descricaoPenalidade = TipoDePenalidadeEnum.SUPERIOR_A_TRINTA_DIAS.getDescricao();
-//        }else if (diasAtraso > 40) {
-//            descricaoPenalidade = TipoDePenalidadeEnum.SUPERIOR_A_QUARENTA_DIAS.getDescricao();
-//        }
-//        return tiposDePenalidadeService.findByDescricao(descricaoPenalidade);
-//    }
 
     private TiposDePenalidade tipoPenalidadePorDiasDeAtraso(Integer diasAtraso) {
         TipoDePenalidadeEnum tipoPenalidade = TipoDePenalidadeEnum.obterPenalidadePorDiasDeAtraso(diasAtraso);

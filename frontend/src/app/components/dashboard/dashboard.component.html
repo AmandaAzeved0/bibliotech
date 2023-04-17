@@ -1,0 +1,35 @@
+<body>
+
+        <mat-card>
+          <b><mat-card-content>Dashboard</mat-card-content></b>
+        </mat-card>
+
+        <div class="row">
+
+          <mat-card class="card column">
+            <mat-card-content>
+              <h2 class="title">Empréstimos</h2>
+              <h1 class="title">{{data?.emprestimos.length ? data.emprestimos.length : 0 }}</h1>
+            </mat-card-content>
+
+<!--            <mat-card-actions>-->
+<!--              <button mat-raised-button color="primary" class="button" [routerLink]="['/meus-emprestimos']">Ver Livros</button>-->
+<!--            </mat-card-actions>-->
+          </mat-card>
+
+          <mat-card  class="card column">
+            <mat-card-content>
+              <h2 class="title">Livros Cadastrados</h2>
+              <h1 class="title">{{data?.livrosCadasrtados.length ? data.livrosCadasrtados.length : 0 }}</h1>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="card column">
+            <mat-card-content>
+              <h2 class="title">Solicitações De Empréstimo</h2>
+              <h1 class="title">{{ data?.solicitacoesDeEmprestimo.length ? data.solicitacoesDeEmprestimo.length : 0 }}</h1>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+</body>

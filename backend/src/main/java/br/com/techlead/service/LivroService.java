@@ -33,18 +33,18 @@ public class LivroService {
     private final UsuarioService usuarioService;
 
     
-    public LivroResponseDto save(List<LivroPostRequestDto> livroPostRequestDtos) {
-        livroPostRequestDtos.forEach(livro -> {
-           estoqueService.atualizaEstoqueCasoExistaOuCriaNovo(livro);
-           EstoqueLivro estoque =  estoqueService.findByIsbn(livro.getTitulo());
-            Usuario usuario = usuarioService.getUsuarioByToken();
-          for (int i = 0; i < livro.getQuantidade(); i++) {
-              Livro livroEntity = LivroMapper.INSTANCE.toEntity(livro, estoque, usuario);
-              repository.save(livroEntity);
-            }
+    public void save(LivroPostRequestDto livroPostRequestDto) {
+        estoqueService.atualizaEstoqueCasoExistaOuCriaNovo(livroPostRequestDto);
+        EstoqueLivro estoque =  estoqueService.findByIsbn(livroPostRequestDto.getTitulo());
+        Usuario usuario = usuarioService.getUsuarioByToken();
+        this.salvaLivrosPorQuantidadeEntidade(livroPostRequestDto, estoque, usuario);
+    }
 
-        });
-        return null;
+    private void salvaLivrosPorQuantidadeEntidade(LivroPostRequestDto livroPostRequestDto, EstoqueLivro estoque, Usuario usuario) {
+        for (int i = 0; i < livroPostRequestDto.getQuantidade(); i++) {
+            Livro livroEntity = LivroMapper.INSTANCE.toEntity(livroPostRequestDto, estoque, usuario);
+            repository.save(livroEntity);
+        }
     }
 
     public void deleteById(Integer id) {
@@ -116,4 +116,22 @@ public class LivroService {
         }
 
     }
+
+    public List<LivroResponseDto> findAll() {
+        List<Livro> livros = repository.findAll();
+        return this.getLivros(livros);
+    }
+
+
+    public List<LivroResponseDto> findByEstoqueId(Integer id) {
+        List<Livro> livros = repository.findByEstoqueId(id);
+        return this.getLivros(livros);
+    }
+
+    public List<LivroResponseDto> findLivrosDisponiveisByGenero(String genero) {
+        List<Livro> livros = repository.findDisponiveisByGenero(genero);
+        return this.getLivros(livros);
+    }
+
+
 }

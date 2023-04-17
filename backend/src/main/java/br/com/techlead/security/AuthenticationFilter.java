@@ -3,6 +3,7 @@ package br.com.techlead.security;
 import br.com.techlead.config.SpringApplicationContext;
 import br.com.techlead.domain.Usuario;
 import br.com.techlead.dto.request.UsuarioCadastroRequestDto;
+import br.com.techlead.exception.FalhaNaAutenticacaoException;
 import br.com.techlead.repository.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
@@ -10,7 +11,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -34,15 +37,15 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 
 
+
     @Override
     public Authentication attemptAuthentication(final HttpServletRequest req, final HttpServletResponse res)
             throws AuthenticationException {
+        res.setHeader("Origin", "http://localhost:4200");
         try {
-
             if (isPreflight(req)) {
                 res.setStatus(HttpServletResponse.SC_NO_CONTENT);
             } else {
-
                 UsuarioCadastroRequestDto creds = new ObjectMapper().readValue(req.getInputStream(), UsuarioCadastroRequestDto.class);
                 logger.info("Authentication with email: {}", creds.getEmail());
 
@@ -51,7 +54,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             }
             return null;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new FalhaNaAutenticacaoException();
         }
     }
 
@@ -99,6 +102,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     private boolean isPreflight(HttpServletRequest request) {
+
         return "OPTIONS".equals(request.getMethod());
     }
 
