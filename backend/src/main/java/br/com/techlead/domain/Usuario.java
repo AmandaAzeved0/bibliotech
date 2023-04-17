@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -41,6 +42,10 @@ public class Usuario implements UserDetails {
     @Column(name = "status_de_bloqueio", nullable = false)
     private Boolean statusDeBloqueio = false;
 
+    @NotNull
+    @Column(name = "senha_provisoria_ativa", nullable = false)
+    private Boolean senhaProvisoriaAtiva = false;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "perfil_id", nullable = false)
     private Perfil perfil;
@@ -54,9 +59,14 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "usuario")
     private Set<SolicitacaoDeEmprestimo> reservas = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "criadoPor")
+    private Set<Livro> livros = new LinkedHashSet<>();
+
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(perfil.getNome());
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(perfil.getSigla());
         return Collections.singletonList(simpleGrantedAuthority);
     }
 
