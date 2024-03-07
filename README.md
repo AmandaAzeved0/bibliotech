@@ -1,6 +1,5 @@
 # BiblioTECH
 ### Projeto de gerenciamento de uma Biblioteca.
-### Cargo pretendido : Desenvolvedor Pleno/C
 ####  linguagens e tecnologias escolhidas:
 - Java 11
 - Spring Boot 2.4.0
@@ -16,7 +15,7 @@
 - Typescript
 - Angular Material
 
-<p>A escolha do Framework **Spring Boot** para o desenvolvimento da API se da pela minha experiencia com essa tecnologia ques traz beneficios e facilidades tais como : Facilidade de configuração, modularidade  que ajuda a manter a aplicação leve e rápida, ser com uma ampla gama de outras tecnologias e frameworks, o que permite integrá-lo facilmente com outras partes da arquitetura da aplicação e seu ecossistema que possui uma grande comunidade de desenvolvedores, além de uma ampla gama de ferramentas e bibliotecas de terceiros, o que pode facilitar o desenvolvimento e melhorar a qualidade da aplicação.</p>
+<p>A escolha do Framework **Spring Boot** para o desenvolvimento da API se da pela minha experiencia com essa tecnologia que traz beneficios e facilidades tais como : Facilidade de configuração, modularidade  que ajuda a manter a aplicação leve e rápida, ser com uma ampla gama de outras tecnologias e frameworks, o que permite integrá-lo facilmente com outras partes da arquitetura da aplicação e seu ecossistema que possui uma grande comunidade de desenvolvedores, além de uma ampla gama de ferramentas e bibliotecas de terceiros, o que pode facilitar o desenvolvimento e melhorar a qualidade da aplicação.</p>
 <p>Já a escolha do **Angular** para o frontend da aplicação se deu por ser um  baseado em componentes, essa abordagem facilita a manutenção e escalabilidade da aplicação. Além de ser escrito em TypeScript, que é uma linguagem de programação que adiciona recursos importantes ao JavaScript, como tipagem estática e suporte a classes e interfaces. Isso torna o código mais fácil de entender e manter, tambem possui muitas ferramentas, bibliotecas e recursos disponíveis para ajudar no desenvolvimento e na resolução de problemasa lém de ter sido  projetado com a testabilidade em mente, o que torna fácil escrever testes unitários e de integração para a aplicação.</p> 
  
 ### Requisitos do Projeto
